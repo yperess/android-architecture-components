@@ -89,6 +89,7 @@ public class SearchFragment extends LifecycleFragment implements Injectable {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         searchViewModel = ViewModelProviders.of(this, viewModelFactory).get(SearchViewModel.class);
+        Timber.d("searchViewModel: %s", searchViewModel);
         initRecyclerView();
         RepoListAdapter rvAdapter = new RepoListAdapter(dataBindingComponent, true,
                 repo -> navigationController.navigateToRepo(repo.owner.login, repo.name));
