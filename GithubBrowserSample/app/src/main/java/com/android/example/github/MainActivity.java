@@ -27,12 +27,15 @@ import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements HasSupportFragmentInjector {
     @Inject
     DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
     @Inject
     NavigationController navigationController;
+    @Inject
+    MainViewModel viewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
         if (savedInstanceState == null) {
             navigationController.navigateToSearch();
         }
+        Timber.d("viewModel: %s", viewModel);
     }
 
     @Override

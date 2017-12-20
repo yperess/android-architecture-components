@@ -16,6 +16,7 @@
 
 package com.android.example.github.di;
 
+import com.android.example.github.di.scope.FragmentScope;
 import com.android.example.github.ui.repo.RepoFragment;
 import com.android.example.github.ui.search.SearchFragment;
 import com.android.example.github.ui.user.UserFragment;
@@ -25,12 +26,15 @@ import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class FragmentBuildersModule {
+    @FragmentScope
     @ContributesAndroidInjector
     abstract RepoFragment contributeRepoFragment();
 
+    @FragmentScope
     @ContributesAndroidInjector
     abstract UserFragment contributeUserFragment();
 
+    @FragmentScope
     @ContributesAndroidInjector
     abstract SearchFragment contributeSearchFragment();
 }

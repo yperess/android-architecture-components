@@ -17,12 +17,15 @@
 package com.android.example.github.di;
 
 import com.android.example.github.MainActivity;
+import com.android.example.github.di.scope.ActivityScope;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class MainActivityModule {
-    @ContributesAndroidInjector(modules = FragmentBuildersModule.class)
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {MainActivityProvidersModule.class,
+            FragmentBuildersModule.class})
     abstract MainActivity contributeMainActivity();
 }

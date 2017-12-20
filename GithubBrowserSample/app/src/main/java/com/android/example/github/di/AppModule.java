@@ -17,12 +17,17 @@
 package com.android.example.github.di;
 
 import android.app.Application;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 
+import com.android.example.github.MainActivity;
+import com.android.example.github.MainViewModel;
 import com.android.example.github.api.GithubService;
 import com.android.example.github.db.GithubDb;
 import com.android.example.github.db.RepoDao;
 import com.android.example.github.db.UserDao;
+import com.android.example.github.di.scope.ActivityScope;
 import com.android.example.github.util.LiveDataCallAdapterFactory;
 
 import javax.inject.Singleton;

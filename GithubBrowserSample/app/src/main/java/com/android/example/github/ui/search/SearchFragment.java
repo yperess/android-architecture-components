@@ -16,14 +16,6 @@
 
 package com.android.example.github.ui.search;
 
-import com.android.example.github.R;
-import com.android.example.github.binding.FragmentDataBindingComponent;
-import com.android.example.github.databinding.SearchFragmentBinding;
-import com.android.example.github.di.Injectable;
-import com.android.example.github.ui.common.NavigationController;
-import com.android.example.github.ui.common.RepoListAdapter;
-import com.android.example.github.util.AutoClearedValue;
-
 import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
@@ -44,7 +36,18 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
+import com.android.example.github.MainViewModel;
+import com.android.example.github.R;
+import com.android.example.github.binding.FragmentDataBindingComponent;
+import com.android.example.github.databinding.SearchFragmentBinding;
+import com.android.example.github.di.Injectable;
+import com.android.example.github.ui.common.NavigationController;
+import com.android.example.github.ui.common.RepoListAdapter;
+import com.android.example.github.util.AutoClearedValue;
+
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 public class SearchFragment extends LifecycleFragment implements Injectable {
 
@@ -54,6 +57,9 @@ public class SearchFragment extends LifecycleFragment implements Injectable {
     @Inject
     NavigationController navigationController;
 
+    @Inject
+    MainViewModel mainViewModel;
+
     DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
 
     AutoClearedValue<SearchFragmentBinding> binding;
@@ -61,6 +67,12 @@ public class SearchFragment extends LifecycleFragment implements Injectable {
     AutoClearedValue<RepoListAdapter> adapter;
 
     private SearchViewModel searchViewModel;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Timber.d("mainViewModel: %s", mainViewModel);
+    }
 
     @Nullable
     @Override
@@ -128,6 +140,7 @@ public class SearchFragment extends LifecycleFragment implements Injectable {
                 }
             }
         });
+        Timber.d("results live data has observers? %s", searchViewModel.getResults().hasObservers());
         searchViewModel.getResults().observe(this, result -> {
             binding.get().setSearchResource(result);
             binding.get().setResultCount((result == null || result.data == null)
